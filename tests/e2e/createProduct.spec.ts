@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/login.page';
 import { ProductPage } from '../../pages/product.page';
 
@@ -7,7 +7,7 @@ import product from '../../data/product.json';
 
 test.describe('Cadastro de Produto', () => {
 
-    test('Deve criar um produto com sucesso', async ({ page }) => {
+    test('Deve criar um produto ativo com sucesso', async ({ page }) => {
 
         const loginPage = new LoginPage(page);
         const productPage = new ProductPage(page);
@@ -16,21 +16,46 @@ test.describe('Cadastro de Produto', () => {
         await loginPage.realizarLogin(user.email, user.senha);
 
         await productPage.accessProductRegistration();
-        await productPage.fillProduct(
-            product.name,
-            product.price,
-            product.description
-        );
 
-        await productPage.salve();
+        await productPage.fillProduct({
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            status: 'ativo'
+        });
+
+        await productPage.save();
+
         await productPage.validateSuccess();
+
+        expect(await productPage.getSelectedStatus()).toBe('ativo');
     });
 
-    test('Editar produto existente com sucesso', async () => { })
 
-    test('Criar produto com status ativo', async () => { })
+    test('Deve criar um produto inativo com sucesso', async ({ page }) => {
 
-    test('Criar produto com status inativo', async () => { })
+        const loginPage = new LoginPage(page);
+        const productPage = new ProductPage(page);
+
+        await loginPage.acessar();
+        await loginPage.realizarLogin(user.email, user.senha);
+
+        await productPage.accessProductRegistration();
+
+        await productPage.fillProduct({
+            name: product.name,
+            price: product.price,
+            description: product.description,
+            status: 'inativo'
+        });
+
+        await productPage.save();
+
+        await productPage.validateSuccess();
+
+        expect(await productPage.getSelectedStatus()).toBe('inativo');
+    });
+
 
     test('Validar exibição correta no catálogo', async () => { })
 

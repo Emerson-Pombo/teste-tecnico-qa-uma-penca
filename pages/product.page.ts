@@ -1,23 +1,48 @@
-import { Page, expect } from '@playwright/test'
+import { Page, expect, Locator } from '@playwright/test'
 
 export class ProductPage {
     readonly page: Page;
 
+    nameInput: Locator;
+    readonly priceInput: Locator;
+    readonly descriptionInput: Locator;
+
+    readonly statusSelect: Locator;
+    readonly saveButton: Locator;
+
     constructor(page: Page) {
         this.page = page;
+
+        this.nameInput = page.locator('#name');
+        this.priceInput = page.locator('#price');
+        this.descriptionInput = page.locator('#description');
+
+        this.statusSelect = page.locator('#status');
+
+        this.saveButton = page.locator('#save');
     }
 
     async accessProductRegistration() {
         await this.page.goto('/products/new');
     }
 
-    async fillProduct(name: string, price: string, description: string) {
-        await this.page.fill('#name', name);
-        await this.page.fill('#price', price);
-        await this.page.fill('#description', description)
+    async fillProduct(data: { name: string, price: string, description: string, status: 'ativo' | 'inativo' }) {
+        await this.nameInput.fill(data.name);
+        await this.priceInput.fill(data.price);
+        await this.descriptionInput.fill(data.description);
+
+        await this.setStatus(data.status);
     }
 
-    async salve() {
+    async setStatus(status: 'ativo' | 'inativo') {
+        await this.statusSelect.selectOption(status);
+    }
+
+    async getSelectedStatus(): Promise<string> {
+        return await this.statusSelect.inputValue();
+    }
+
+    async save() {
         await this.page.click('#click');
     }
 
