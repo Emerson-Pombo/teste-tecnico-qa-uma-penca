@@ -1,0 +1,5 @@
+{
+    "name": "Produto Automação",
+    "price": "150.00",
+    "description": "Produto criado via Playwright com TypeScript"
+}
