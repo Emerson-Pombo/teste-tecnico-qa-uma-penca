@@ -5,7 +5,7 @@
 Este projeto foi desenvolvido como parte do teste técnico para a posição de Analista de Qualidade de Software (QA).
 O objetivo foi validar a funcionalidade de criação, edição e exibição de produtos, garantindo qualidade ponta a ponta por meio de testes funcionais, automatizados e de API, seguindo boas práticas de engenharia de software e qualidade.
 
-(As respostas detalhadas para as perguntas propostas no teste técnico podem ser encontradas no arquivo [respostas.md])
+(As respostas detalhadas para as perguntas propostas no teste técnico podem ser encontradas no arquivo [[respostas.md](https://github.com/Emerson-Pombo/teste-tecnico-qa-uma-penca/blob/14954cced681590c63301251108ead6835564e49/exercicios/respostas.md)])
 
 ## 1 - Como pensei os testes?
 
